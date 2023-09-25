@@ -1,0 +1,119 @@
+:root {
+    --timing: 400ms;
+    --rotation: 25deg;
+}
+
+html {
+    width: 100%;
+    color-scheme: dark;
+}
+
+body {
+    display: grid;
+    place-content: center;
+    min-height: 100vh; 
+    perspective: 1000px;
+}
+
+
+.main {
+    width: 60vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+img {
+    max-width: 100%;
+}
+
+.yoda {
+    
+    width: 350px;
+    aspect-ratio: 9 / 16;
+    position: relative;
+    transform-style: preserve-3d;
+    transition:  rotate var(--timing) ease;
+      
+}
+.yoda:hover {
+    rotate: x 35deg;  
+} 
+
+.yoda::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    background-image: radial-gradient(circle, transparent 150px, black);
+    opacity: 0;
+    transition: opacity var(--timing);
+}
+
+.yoda:hover::before {
+    opacity: 1;
+}
+
+.yoda::after {
+    content: '';
+    position: absolute;
+    inset: 80% 0.5rem 0.5rem;
+    translate: 0;
+    transform: translateZ(-100px);
+    z-index: 1;
+    background-color: rgb(8, 8, 8);
+    filter: blur(1rem);
+    transition: 
+        rotate var(--timing),
+        translate var(--timing);
+}
+
+
+.yoda:hover::after {
+    rotate: x calc(var(--rotation) * -1);
+    translate: 0 60px;
+    opacity: .1;
+}
+
+
+.bg-image {
+    position: absolute;
+    z-index: 10;
+    object-fit: cover;
+    height: 100%;
+    object-position: center;
+    object-position: -150px center;
+}
+
+.logo, .front-image{
+    position: absolute; 
+}
+
+.logo {
+    z-index: 1000;
+    filter:invert(1);
+    width: 65%;
+    margin-inline: auto;
+    inset: auto 0 2rem;
+    transform: translateY(0rem) translateZ(20px);
+    transition: var(--timing);
+}
+
+
+.yoda:hover .logo {
+    transform: translateY(-2rem) translateZ(20px);
+    rotate: x calc(var(--rotation) * -1);
+}
+
+.front-image {
+    scale: 1.125;
+    transform-origin: bottom;
+    opacity: 0;
+    z-index: 100;
+    transition: var(--timing);
+}
+
+.yoda:hover .front-image {
+    opacity: 1;
+    transform: translateY(-2rem) translateZ(-10px);
+    rotate: x calc(var(--rotation) * -1);
+}
